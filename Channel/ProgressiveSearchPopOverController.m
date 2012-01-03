@@ -1,16 +1,19 @@
 //
-//  FavouriteImagesPopOver.m
+//  ProgressiveSearchPopOverController.m
 //  Channel
 //
-//  Created by Aneesh on 22/12/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Aneesh on 03/01/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FavouriteImagesPopOver.h"
-#import "AppDelegate.h"
+#import "ProgressiveSearchPopOverController.h"
 
-@implementation FavouriteImagesPopOver
+@implementation ProgressiveSearchPopOverController
 @synthesize delegate;
+@synthesize name,searchWasActive,filteredListContent;
+//@synthesize filteredListContent, savedSearchTerm, savedScopeButtonIndex, searchWasActive,textSearch;
+
+//@synthesize array;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -32,13 +35,22 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.title= appDelegate.popovertitle;
-  
+        
+    
+     name=[[NSMutableArray alloc]init]; 
+     [name addObject: @"raju"];
+     [name addObject: @"glee"];
+     [name addObject: @"ashu"];
+     [name addObject: @"ashu"];
+     [name addObject: @"Prakash"];
+     [name addObject: @"aakash"];
+     [name addObject: @"Suresh"];
+    [name addObject: @"Tina"];
    
- 
+    NSLog(@"lllllll--------%d",searchWasActive);
     
 }
 
@@ -64,15 +76,18 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return YES;
+}
+- (void)viewDidDisappear:(BOOL)animated
+{    [super viewDidDisappear:animated];
+    // save the state of the search UI so that it can be restored if the view is re-created
+//    self.searchWasActive = [self.searchDisplayController isActive];
+//    self.savedSearchTerm = [self.searchDisplayController.searchBar text];
+//    self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
 }
 
 #pragma mark - Table view data source
@@ -81,61 +96,52 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 4;
+    return 1;
 }
-/*
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // Returns section title based on physical state: [solid, liquid, gas, artificial]
-    return @"Sharma";
-}
-*/
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    if(section==3){
-        return 7;
-    }
-    else{
-        return 1;
+    if (searchWasActive==2){
+          if([filteredListContent count]==0){
+               NSLog(@"no result");
+              noresultfound=1;
+            return 1;
+          }
+          else{
+           return [filteredListContent count];
+          }
+     }
+    
+   else {
+    return 7;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{   
-   
-    NSMutableArray *array  =[[NSMutableArray alloc] initWithObjects:@"Favourites",@"Action/Adventure",@"Comedy",@"Drama",@"Indie/Foreign",@"News",@"Reality TV",nil];
+{
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    cell.textLabel.text=[name objectAtIndex:indexPath.row];
     
-    if(indexPath.row==0 && indexPath.section==0){
-        cell.textLabel.text=@"Favourites";
-    } 
-    if(indexPath.row==0 && indexPath.section==1){
-        cell.textLabel.text=@"Popular";
-    } 
-    if(indexPath.row==0 && indexPath.section==2){
-        cell.textLabel.text=@"Movies";
-    } 
-    if(indexPath.section > 2){
-        cell.textLabel.text= [array objectAtIndex:indexPath.row];
-    }
-     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if(indexPath.section == appDelegate.pathSection && indexPath.row == appDelegate.pathRow){
-          NSLog(@"index path row --%dand section are----%d",appDelegate.pathSection,appDelegate.pathRow);
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    }
-    else{
-        [cell setAccessoryType:nil];
+    
+    if(searchWasActive==2) {
+        
+         if(noresultfound==1){
+             NSLog(@"no result");
+            cell.textLabel.text=@"NO RESULT FOUND";
+         }
+         else{
+         cell.textLabel.text=[filteredListContent objectAtIndex:indexPath.row];
+         NSLog(@"filtered list content is %d",[filteredListContent count]);
+         }      
     }
     
-  
-    //[cell setEditingAccessoryType:UITableViewCellAccessoryCheckmark];
-       return cell;
+    return cell;
 }
 
 /*
@@ -177,34 +183,32 @@
 }
 */
 
+//}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{   NSString *title;
-    NSMutableArray *array  =[[NSMutableArray alloc] initWithObjects:@"Favourites",@"Action/Adventure",@"Comedy",@"Drama",@"Indie/Foreign",@"News",@"Reality TV",nil];
-  
-
-    if(indexPath.row==0 && indexPath.section==0){
-       title=@"Favourites";
-    } 
-    if(indexPath.row==0 && indexPath.section==1){
-         title=@"Popular";
-    } 
-    if(indexPath.row==0 && indexPath.section==2){
-         title=@"Movies";
-    } 
-    if(indexPath.section > 2){
-        title= [array objectAtIndex:indexPath.row];
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
+    /*if (indexPath.row==1) {
+        [delegate dothis];
     }
-
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.popovertitle=[NSMutableString stringWithString:title];
-    appDelegate.pathRow=indexPath.row;
-    appDelegate.pathSection=indexPath.section;
+     */
     
-    self.title=appDelegate.popovertitle;
-    [self.tableView reloadData];
-    [delegate setTitle];
+    [delegate removeKeyBoard];
+    [delegate removePopover];
+    if ([[filteredListContent objectAtIndex:indexPath.row] isEqualToString:@"glee"]) {
+     [delegate dothis];
+    }
+   
+  //  [delegate removePopover];
+    //[self.parentViewController dothis];
 }
 
 @end

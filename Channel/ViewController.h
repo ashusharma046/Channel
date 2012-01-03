@@ -10,14 +10,16 @@
 #import "DetaialViewController.h"
 #import "FavouriteImagesPopOver.h"
 #import "ViewSocialDetailsController.h"
-@interface ViewController : UIViewController<detailViewControllerDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate,favouriteImagePopOverdelegate>{
+#import "ProgressiveSearchPopOverController.h"
+@interface ViewController : UIViewController<detailViewControllerDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate,favouriteImagePopOverdelegate,UITextFieldDelegate,ProgressiveSearchPopOverControllerdelegate>{
     IBOutlet UIImageView *favouriteImg; 
     UIPopoverController * favouriteImagePopOverController;
+    UIPopoverController * progressiveSearchPopOverController;
     UIImageView * bottomImageView;
     UIImageView *flipImg;
     DetaialViewController *detaialViewController;
     ViewSocialDetailsController *viewSocialDetailsController;
-    
+    ProgressiveSearchPopOverController *popOver;
     UIImageView *toby1;
     UIButton *watchnowbtn;
     UIButton *moreinfbtn;
@@ -42,7 +44,9 @@
     IBOutlet UIButton *ginaChannel;
     
     UIImage *tobygina1,*tobygina2,*tobygina3;
-
+    IBOutlet UITextField *searchTetField;
+    
+    IBOutlet UIButton *closeButton;
     
 }
 @property(nonatomic,strong) IBOutlet UIImageView *favouriteImg;
@@ -58,10 +62,12 @@
 @property(nonatomic,strong) IBOutlet UIView *topView;
 @property(nonatomic,strong) IBOutlet UILabel *favlabel;
 @property(nonatomic,strong) ViewSocialDetailsController *viewSocialDetailsController;
-
+@property(nonatomic,strong) UIPopoverController * progressiveSearchPopOverController;
 @property(nonatomic,strong) IBOutlet UIButton *tobychannel;
 @property(nonatomic,strong) IBOutlet UIButton *ginaChannel;
+@property(nonatomic,strong) IBOutlet UITextField *searchTetField;
 
+@property(nonatomic,strong) IBOutlet UIButton *closeButton;
 
 
 -(IBAction)handlFavouriteTap :(UITapGestureRecognizer *)recognizer;
@@ -71,6 +77,6 @@
 -(IBAction)bottomButtonPressed2:(id)sender;
 -(IBAction)displayChanell:(UIButton *)sender;
 -(void)secAnimation;
-
-
+- (NSMutableArray *)filterContentForSearchText:(NSString*)searchText;
+-(IBAction) clearTextField;
 @end

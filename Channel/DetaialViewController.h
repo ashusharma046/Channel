@@ -32,6 +32,7 @@ CustomAlertviewController *customAlertviewController;
 -(IBAction) viewSocialTap;
 -(void) tapClose;
 -(IBAction) viewSocialAnimation:(id)sender;
+
 @property(nonatomic,strong) id <detailViewControllerDelegate> delegate;
 @property(nonatomic,strong) IBOutlet UIImageView *backgroungImg; 
 @property(nonatomic,strong) CustomAlertviewController *customAlertviewController;

@@ -11,14 +11,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DetaialViewController.h"
 #import "AppDelegate.h"
+#import "ProgressiveSearchPopOverController.h"
 @implementation ViewController
 @synthesize favouriteImg;
 @synthesize favouriteImagePopOverController,navcontroller,scView,immg,bottomImageView,detaialViewController,topScrollBtn,childTopScroll,topView,favlabel;
-//@synthesize label1,label2,label3;
+@synthesize progressiveSearchPopOverController;
 @synthesize tobychannel;
 @synthesize ginaChannel;
 @synthesize viewSocialDetailsController;
-
+@synthesize searchTetField;
+@synthesize closeButton;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -36,7 +38,7 @@
     favouriteImg.tag=5;
     [favouriteImg addGestureRecognizer:tap];
     [scView setContentSize:CGSizeMake(3*1024, 200)];
-     [childTopScroll setContentSize:CGSizeMake(311, 49)];
+    [childTopScroll setContentSize:CGSizeMake(311, 49)];
     
     UIImage * ginaChannelImg =[UIImage imageNamed:@"GINA_channels.png"];
     UIImage * ginaImg =[UIImage imageNamed:@"Gina-1.png"];
@@ -190,7 +192,9 @@
    
     scView.pagingEnabled=YES;
     topScroll.pagingEnabled=YES;
+    closeButton.hidden=YES;
    
+    [searchTetField addTarget:self action:@selector(textFieldTextChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 
 
@@ -818,7 +822,104 @@
         
     
 }
+-(void)removePopover{
+  [self.progressiveSearchPopOverController dismissPopoverAnimated:YES];
+}
 
+#pragma mark -
+#pragma mark textField delegate methods
+
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
+   
+    
+ 
+   popOver=[[ProgressiveSearchPopOverController alloc] initWithStyle:UITableViewStyleGrouped];
+   // popOver.textSearch=textField.text;
+    [popOver setContentSizeForViewInPopover:CGSizeMake(240, 340)];
+     popOver.delegate=self;
+    baseContoller = [[UINavigationController alloc] initWithRootViewController:popOver];
+    
+    progressiveSearchPopOverController= [[UIPopoverController alloc] initWithContentViewController:baseContoller];
+    
+    
+
+   [progressiveSearchPopOverController presentPopoverFromRect:CGRectMake(830,80,40,35)  inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp  animated:YES];
+
+
+	return YES;
+}
+
+
+- (BOOL)textFieldTextChanged:(UITextField *)textField{
+    
+    
+        closeButton.hidden=NO;
+        
+    
+    popOver.filteredListContent=[self filterContentForSearchText:textField.text];
+    popOver.searchWasActive=2;
+    
+    
+    [popOver.tableView reloadData];
+    [progressiveSearchPopOverController presentPopoverFromRect:CGRectMake(830,80,40,35)  inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp  animated:YES];
+	return YES;
+	
+
+
+}
+-(IBAction) clearTextField{
+    [searchTetField setText:@""];
+    closeButton.hidden=YES;
+    if(!progressiveSearchPopOverController){
+     [self.progressiveSearchPopOverController dismissPopoverAnimated:YES];
+    
+    }
+
+
+}
+
+- (BOOL) textFieldShouldEndEditing:(UITextField *)textField{
+  
+   /* if ([textField.text length]>0) {
+        closeButton.hidden=NO;
+        
+    }
+    popOver.filteredListContent=[self filterContentForSearchText:textField.text];
+    popOver.searchWasActive=2;
+   
+   // NSLog(@"text field should end editing    ----------------%d  and  %@",popOver.searchWasActive,[popOver.filteredListContent objectAtIndex:0]);
+    [popOver.tableView reloadData];
+    [progressiveSearchPopOverController presentPopoverFromRect:CGRectMake(830,80,40,35)  inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp  animated:YES];
+    
+    */
+	return YES;
+	
+}
+
+-(void) removeKeyBoard{
+    [searchTetField resignFirstResponder];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+	[textField resignFirstResponder];
+	return YES;
+}
+
+- (NSMutableArray *)filterContentForSearchText:(NSString*)searchText{ 
+    NSMutableArray *filtered;
+    filtered=[[NSMutableArray alloc] init];
+    for (NSString *str in popOver.name) {
+        
+             NSComparisonResult result = [str compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+             if (result == NSOrderedSame)
+             {
+             NSLog(@"string is %@  and seracttext is  %@",str,searchText);
+             [filtered addObject:str];
+             }
+    }
+  
+    return filtered;
+
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

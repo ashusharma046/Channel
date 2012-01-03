@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9C64F2B314AF7C9000E4B8E9 /* ViewSocialDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C64F2B114AF7C9000E4B8E9 /* ViewSocialDetailsController.m */; };
 		9C64F2B714AF8EE600E4B8E9 /* ViewSocialDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C64F2B614AF8EE600E4B8E9 /* ViewSocialDetailsController.xib */; };
+		9C836C4D14B2CB16004B1ABC /* ProgressiveSearchPopOverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C836C4B14B2CB16004B1ABC /* ProgressiveSearchPopOverController.m */; };
+		9C836C4E14B2CB16004B1ABC /* ProgressiveSearchPopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C836C4C14B2CB16004B1ABC /* ProgressiveSearchPopOverController.xib */; };
 		9C9A3F9814B22BC60085E519 /* CustomAlertviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9A3F9714B22BC60085E519 /* CustomAlertviewController.m */; };
 		9C9A3F9A14B22BCF0085E519 /* CustomAlertviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C9A3F9914B22BCF0085E519 /* CustomAlertviewController.xib */; };
 		9CA2B64714A5BB3000D65BAD /* DetaialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA2B64514A5BB3000D65BAD /* DetaialViewController.m */; };
@@ -141,6 +143,9 @@
 		9C64F2B014AF7C9000E4B8E9 /* ViewSocialDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSocialDetailsController.h; sourceTree = "<group>"; };
 		9C64F2B114AF7C9000E4B8E9 /* ViewSocialDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSocialDetailsController.m; sourceTree = "<group>"; };
 		9C64F2B614AF8EE600E4B8E9 /* ViewSocialDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewSocialDetailsController.xib; sourceTree = "<group>"; };
+		9C836C4A14B2CB16004B1ABC /* ProgressiveSearchPopOverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressiveSearchPopOverController.h; sourceTree = "<group>"; };
+		9C836C4B14B2CB16004B1ABC /* ProgressiveSearchPopOverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressiveSearchPopOverController.m; sourceTree = "<group>"; };
+		9C836C4C14B2CB16004B1ABC /* ProgressiveSearchPopOverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressiveSearchPopOverController.xib; sourceTree = "<group>"; };
 		9C9A3F9514B22BBD0085E519 /* CustomAlertviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertviewController.h; sourceTree = "<group>"; };
 		9C9A3F9714B22BC60085E519 /* CustomAlertviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertviewController.m; sourceTree = "<group>"; };
 		9C9A3F9914B22BCF0085E519 /* CustomAlertviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertviewController.xib; sourceTree = "<group>"; };
@@ -335,6 +340,9 @@
 				9CA2B64414A5BB3000D65BAD /* DetaialViewController.h */,
 				9CA2B64514A5BB3000D65BAD /* DetaialViewController.m */,
 				9CA2B64614A5BB3000D65BAD /* DetaialViewController.xib */,
+				9C836C4A14B2CB16004B1ABC /* ProgressiveSearchPopOverController.h */,
+				9C836C4B14B2CB16004B1ABC /* ProgressiveSearchPopOverController.m */,
+				9C836C4C14B2CB16004B1ABC /* ProgressiveSearchPopOverController.xib */,
 				9CC4C97414A33E3800613B20 /* FavouriteImagesPopOver.h */,
 				9CC4C97514A33E4A00613B20 /* FavouriteImagesPopOver.m */,
 				9C64F2B014AF7C9000E4B8E9 /* ViewSocialDetailsController.h */,
@@ -730,6 +738,7 @@
 				9CA2B64814A5BB3000D65BAD /* DetaialViewController.xib in Resources */,
 				9C64F2B714AF8EE600E4B8E9 /* ViewSocialDetailsController.xib in Resources */,
 				9C9A3F9A14B22BCF0085E519 /* CustomAlertviewController.xib in Resources */,
+				9C836C4E14B2CB16004B1ABC /* ProgressiveSearchPopOverController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +756,7 @@
 				9CA2B64714A5BB3000D65BAD /* DetaialViewController.m in Sources */,
 				9C64F2B314AF7C9000E4B8E9 /* ViewSocialDetailsController.m in Sources */,
 				9C9A3F9814B22BC60085E519 /* CustomAlertviewController.m in Sources */,
+				9C836C4D14B2CB16004B1ABC /* ProgressiveSearchPopOverController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

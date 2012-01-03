@@ -12,6 +12,7 @@
 
 @interface FavouriteImagesPopOver : UITableViewController<UIPopoverControllerDelegate>{
 id <favouriteImagePopOverdelegate> delegate;
+      
 }
 @property(strong,nonatomic) id <favouriteImagePopOverdelegate> delegate;
 @end

@@ -58,6 +58,13 @@
 -(void) tapClose{
 }
 
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+
+}
+
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad

@@ -74,16 +74,42 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="gXQ-9G-9s2">
+                                <rect key="frame" x="801" y="35" width="112" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="2" id="aLl-2g-b92"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CCP-Ma-uRr">
+                                <rect key="frame" x="894" y="30" width="72" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="close.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearTextField" destination="2" eventType="touchUpInside" id="jiu-Gl-kkO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="closeButton" destination="CCP-Ma-uRr" id="4gz-WE-o4L"/>
                         <outlet property="favlabel" destination="0ft-kn-7A9" id="xtn-xZ-Gu1"/>
                         <outlet property="favouriteImg" destination="3MO-te-4E3" id="DQ5-Ng-5Lh"/>
                         <outlet property="ginaChannel" destination="vKo-LE-Zil" id="GCU-xZ-4aH"/>
                         <outlet property="scView" destination="ld7-aw-zCo" id="XCI-PD-7lb"/>
+                        <outlet property="searchTetField" destination="gXQ-9G-9s2" id="CsP-BH-HCd"/>
                         <outlet property="tobychannel" destination="ZJj-yV-OVb" id="EBy-fB-Oro"/>
                         <outlet property="topView" destination="f5M-ib-YkT" id="gAg-jY-qPm"/>
                     </connections>
@@ -92,6 +118,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="close.png" width="82" height="82"/>
         <image name="dropdown.png" width="195" height="40"/>
         <image name="gina.png" width="81" height="97"/>
         <image name="navbar-highlight.png" width="187" height="56"/>
@@ -103,19 +130,19 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
                 <relationship kind="action" name="bottomButtonPressed2:"/>
+                <relationship kind="action" name="clearTextField"/>
                 <relationship kind="action" name="displayChanell:" candidateClass="UIButton"/>
                 <relationship kind="action" name="handlFavouriteTap:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="action" name="startingActivityAnimation:"/>
                 <relationship kind="outlet" name="bottomImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="childTopScroll" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="favlabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="favouriteImg" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="ginaChannel" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="immg" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="label1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label3" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="searchTetField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="tobychannel" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="topScrollBtn" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="topView" candidateClass="UIView"/>
