@@ -8,11 +8,12 @@
 
 #import "DetaialViewController.h"
 #import "ViewSocialDetailsController.h"
-
+#import "CustomAlertviewController.h"
 
 @implementation DetaialViewController
 @synthesize delegate;
 @synthesize backgroungImg;
+@synthesize customAlertviewController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,12 +23,13 @@
     return self;
 }
 -(IBAction) viewSocialAnimation:(id)sender{
- 
-    ViewSocialDetailsController *viewSocialDetailsController = [[ViewSocialDetailsController alloc] initWithNibName:@"ViewSocialDetailsController" bundle:Nil];
+    [delegate doAnimation];
+  /*  NSLog(@"first");
+    ViewSocialDetailsController *viewSocialDetailsController = [[ViewSocialDetailsController alloc] initWithNibName:@"ViewSocialDetailsController" bundle:nil];
     viewSocialDetailsController.delegate=self;
        [self.view addSubview:viewSocialDetailsController.view];
     [UIView transitionWithView:self.view duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{} completion:^(BOOL f){}];
-    
+    */
     
   
 }
@@ -43,13 +45,15 @@
     [delegate doFlip:self];
 }
 -(IBAction) thumbTap:(UIButton *) thumb{
+  customAlertviewController = [[CustomAlertviewController alloc] init];
+    [self.view addSubview:customAlertviewController.view];
 }
 -(IBAction) imdbTap{
 }
 -(IBAction) wikiTap{
 }
 -(IBAction) viewSocialTap{
-    [delegate domoreInfo];
+    //[delegate domoreInfo];
 }
 -(void) tapClose{
 }

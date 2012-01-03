@@ -36,7 +36,7 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.title= appDelegate.popovertitle;
-    NSLog(@"Gkkkkkkk---%@",appDelegate.popovertitle);
+   
  
     
 }
@@ -200,7 +200,7 @@
     appDelegate.popovertitle=[NSMutableString stringWithString:title];
     appDelegate.pathRow=indexPath.row;
     appDelegate.pathSection=indexPath.section;
-    NSLog(@"okkkkkkk---%@",appDelegate.popovertitle);
+    
     self.title=appDelegate.popovertitle;
     [self.tableView reloadData];
     [delegate setTitle];

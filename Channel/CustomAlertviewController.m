@@ -1,30 +1,24 @@
 //
-//  ViewSocialDetailsController.m
+//  CustomAlertviewController.m
 //  Channel
 //
-//  Created by Aneesh on 31/12/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Aneesh on 02/01/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ViewSocialDetailsController.h"
+#import "CustomAlertviewController.h"
 
-@implementation ViewSocialDetailsController
-;
+@implementation CustomAlertviewController
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-      
+        // Custom initialization
     }
     return self;
 }
 
--(IBAction)reverseFlipAnimation{
-    
-    [UIView transitionWithView:[self.view superview] duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        [self.view removeFromSuperview];
-    } completion:^(BOOL f){}];
-}
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -32,14 +26,16 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+-(IBAction)cancel:(id)sender{
+    [self.view removeFromSuperview];
 
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor clearColor];
-   // int retaincount= [self.parentViewController retainCount];
+    [self.view setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)viewDidUnload

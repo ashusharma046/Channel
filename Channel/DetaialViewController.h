@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewSocialDetailsController.h"
+#import "CustomAlertviewController.h"
 @protocol detailViewControllerDelegate
 -(IBAction) doFlip :(id)sender ;//doFlip;
--(void) domoreInfo;
+-(void) doAnimation;
 @end
-@interface DetaialViewController : UIViewController<ViewSocialDetailsControllerDelegate>{
+@interface DetaialViewController : UIViewController{
 IBOutlet UIScrollView *scroll;
 id <detailViewControllerDelegate> delegate;
 IBOutlet UIButton *thumbUpbtn;
@@ -21,7 +22,8 @@ IBOutlet UIImageView *mainImageView;
 IBOutlet UIButton *closebtn;
 IBOutlet UIButton *viewSocialbtn;
 UIWebView * WebView;
-IBOutlet UIImageView *backgroungImg;    
+IBOutlet UIImageView *backgroungImg; 
+CustomAlertviewController *customAlertviewController;    
 }
 -(IBAction) closeButton;
 -(IBAction) thumbTap:(UIButton *) thumb;
@@ -31,6 +33,7 @@ IBOutlet UIImageView *backgroungImg;
 -(void) tapClose;
 -(IBAction) viewSocialAnimation:(id)sender;
 @property(nonatomic,strong) id <detailViewControllerDelegate> delegate;
-@property(nonatomic,strong) IBOutlet UIImageView *backgroungImg; ;
+@property(nonatomic,strong) IBOutlet UIImageView *backgroungImg; 
+@property(nonatomic,strong) CustomAlertviewController *customAlertviewController;
 @end
 

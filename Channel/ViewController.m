@@ -14,9 +14,10 @@
 @implementation ViewController
 @synthesize favouriteImg;
 @synthesize favouriteImagePopOverController,navcontroller,scView,immg,bottomImageView,detaialViewController,topScrollBtn,childTopScroll,topView,favlabel;
-@synthesize label1,label2,label3;
+//@synthesize label1,label2,label3;
 @synthesize tobychannel;
 @synthesize ginaChannel;
+@synthesize viewSocialDetailsController;
 
 - (void)didReceiveMemoryWarning
 {
@@ -46,23 +47,31 @@
     tobygina2 = [UIImage imageNamed:@"Toby&Gina-1.png"];
     tobygina3 = [UIImage imageNamed:@"Toby&Gina-2.png"];
 
+    UISwipeGestureRecognizer *swipe =[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handletopScrollSwipe:)] ;
+    swipe.delegate=self;
+    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    
     
     UIImageView *ginaChanell=[[UIImageView alloc] initWithImage:ginaChannelImg];
     toby1=[[UIImageView alloc] initWithImage:ginaImg];
     UIImageView *both=[[UIImageView alloc] initWithImage:bothImg];
+    
     sc1=[[UIScrollView alloc] init];
     sc1.frame=CGRectMake(0, 0, ginaChannelImg.size.width, 430);
- 
+    [sc1 addGestureRecognizer:swipe];
+    
+    
     sc2=[[UIScrollView alloc] init];
     sc2.frame=CGRectMake(ginaChannelImg.size.width, 0,ginaImg.size.width, 430);
     sc2.delaysContentTouches=NO;
     
-    UIScrollView *sc3=[[UIScrollView alloc] init];
+    sc3=[[UIScrollView alloc] init];
     sc3.frame=CGRectMake(ginaImg.size.width+ginaChannelImg.size.width, 0, bothImg.size.width,430);
         
     [sc1 setContentSize:CGSizeMake(1024, 1500)];
     [sc2 setContentSize:CGSizeMake(1024, 1500)];
     [sc3 setContentSize:CGSizeMake(1024, 1500)];
+    [scView setContentSize:CGSizeMake(3*1024, 499)];
     
     [scView addSubview:sc1];
     [scView addSubview:sc2];
@@ -93,18 +102,17 @@
     
     
     UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlFavouriteTap:)] ;
-    UISwipeGestureRecognizer *swipe =[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handletopScrollSwipe:)] ;
-    swipe.delegate=self;
+   
     
-   // UIButton *lab1=[[UIButton alloc] init];
-   UILabel *lab1=[[UILabel alloc] init];
+  
+    UILabel *lab1=[[UILabel alloc] init];
      lab1.frame=CGRectMake(0, 0, 341.33, 35);
     lab1.text=@"Favourite Channel";
-   // lab1.titleLabel.text=@"Favourite Channel";
+  
     lab1.backgroundColor=[UIColor clearColor];
     lab1.tag=1;
     lab1.userInteractionEnabled=YES;
-   // lab1.titleLabel.textAlignment = UITextAlignmentCenter;
+ 
     lab1.textAlignment = UITextAlignmentCenter;
     [lab1 addGestureRecognizer:tapGesture];
     [lab1 addGestureRecognizer:swipe];
@@ -133,26 +141,12 @@
     [lab3 addGestureRecognizer:tapGesture3];
         
     topScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0,0,1024,50)]; 
-    /*
-    scroll=[[UIScrollView alloc] initWithFrame:CGRectMake(400,0,187,49)]; 
-    scroll.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navbar-highlight.png"]];
-    [scroll setContentSize:CGSizeMake(187, 42)];
-    scroll.delegate=self;
-     */
+   
     [topView addSubview:topScroll];
-   /* UILabel *blankLavel1= [[UILabel alloc] init];
-    blankLavel1.backgroundColor= [UIColor clearColor];
-    blankLavel1.frame =CGRectMake(0, 0, 341.33, 48);
-    [topView insertSubview:blankLavel1 aboveSubview:topScroll];
-    blankLavel1.userInteractionEnabled=NO;
-   */
+  
     
     topScroll.delegate=self;
-     /*
-    [scroll addSubview:lab1];
-    [scroll addSubview:lab2];
-    [scroll addSubview:lab3];
-    */
+     
     [topScroll addSubview:lab1];
     [topScroll addSubview:lab2];
     [topScroll addSubview:lab3];
@@ -186,15 +180,20 @@
     both.userInteractionEnabled=YES;
     CGPoint offset=[scView contentOffset];
     offset.x=50;
-    //[scView setContentOffset:offset animated:YES];
+    
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     
        
     CGPoint offset1 = [topScroll contentOffset];
     offset1.x=-340;
     [topScroll setContentOffset:offset1];
-       
+   
+    scView.pagingEnabled=YES;
+    topScroll.pagingEnabled=YES;
+   
 }
+
+
 -(IBAction) handletopScrollSwipe:(UISwipeGestureRecognizer *)sender{
     NSLog(@"yeeeeeeeee");
     if(sender.view.tag==1){
@@ -210,30 +209,63 @@
     if(sender.selected==YES){
         sender.selected=NO;
         sender.alpha=.6;
+        NSLog(@"se");
     }
     else{
         sender.selected=YES;
         sender.alpha=1;
+         NSLog(@"ge");
     }
     
     
-    
-    if(sender.tag==1){
-    
-      UIImage * tobyImg = [UIImage imageNamed:@"Toby_channels.png"];
-      UIImageView *tobyImageview =[[UIImageView alloc] initWithImage:tobyImg];
-      tobyImageview.frame=CGRectMake(0, 0, tobyImg.size.width, tobyImg.size.height);
-      for( UIView *view in [sc1 subviews]){
-        [view removeFromSuperview];
-     }
-      
-      [sc1 addSubview:tobyImageview];
-      [self.view reloadInputViews];
+    UIImage * tobyImg = [UIImage imageNamed:@"Toby_channels.png"];
+    UIImage * tobyImg1 = [UIImage imageNamed:@"Toby-1.png"];
+    UIImage * tobyImg2 = [UIImage imageNamed:@"Toby-2.png"];
+    UIImage * ginaChannelImg =[UIImage imageNamed:@"GINA_channels.png"];
+    UIImage * ginaChannelImg1 =[UIImage imageNamed:@"Gina-1.png"];
+    UIImage * ginaChannelImg2 =[UIImage imageNamed:@"Gina-2.png"];
+    UIImage * bothImg = [UIImage imageNamed:@"TOBY&GINA_channels.png"];
+    UIImage * bothImg1 = [UIImage imageNamed:@"Toby&Gina-1.png"];
+    UIImage * bothImg2 = [UIImage imageNamed:@"Toby&Gina-2.png"];
+    if( tobychannel.selected==YES ){
+         NSLog(@"111111111");
+        
+        UIImageView *tobyImageview =[[UIImageView alloc] initWithImage:tobyImg];
+        tobyImageview.frame=CGRectMake(0, 0, tobyImg.size.width, tobyImg.size.height);
+        for( UIView *view in [sc1 subviews]){
+            [view removeFromSuperview];
+        }
+        
+        [sc1 addSubview:tobyImageview];
+        
+        
+        UIImageView *tobyImageview1 =[[UIImageView alloc] initWithImage:tobyImg1];
+        tobyImageview1.frame=CGRectMake(0, 0, tobyImg1.size.width, tobyImg1.size.height);
+        for( UIView *view in [sc2 subviews]){
+            [view removeFromSuperview];
+        }
+        
+        [sc2 addSubview:tobyImageview1];
+        [self.view reloadInputViews];
+        
+        
+        UIImageView *tobyImageview2 =[[UIImageView alloc] initWithImage:tobyImg2];
+        tobyImageview2.frame=CGRectMake(0, 0, tobyImg2.size.width, tobyImg2.size.height);
+        for( UIView *view in [sc3 subviews]){
+            [view removeFromSuperview];
+        }
+        
+        [sc3 addSubview:tobyImageview2];
+        [self.view reloadInputViews];
+        tobyImageview=nil;
+        tobyImageview1=nil;
+        tobyImageview2=nil;
+        
     }
     
-    
-    if(sender.tag==2){
-        UIImage * ginaChannelImg =[UIImage imageNamed:@"GINA_channels.png"];
+    if(ginaChannel.selected==YES ){
+        
+        NSLog(@"222222222");
         UIImageView *ginaImageview =[[UIImageView alloc] initWithImage:ginaChannelImg];
         ginaImageview.frame=CGRectMake(0, 0, ginaChannelImg.size.width, ginaChannelImg.size.height);
         
@@ -241,22 +273,53 @@
             [view removeFromSuperview];
         }
         [sc1 addSubview:ginaImageview];
-        [self.view reloadInputViews];
-            
-    }
-    if( tobychannel.selected==YES ){
         
-        NSLog(@"11");
+        UIImageView *ginaImageview2 =[[UIImageView alloc] initWithImage:ginaChannelImg1];
+        ginaImageview2.frame=CGRectMake(0, 0, ginaChannelImg1.size.width, ginaChannelImg1.size.height);
         
-    }
-    if(ginaChannel.selected==YES ){
+        for( UIView *view in [sc2 subviews]){
+            [view removeFromSuperview];
+        }
+        [sc2 addSubview:ginaImageview2];
         
-        NSLog(@"222");
+        UIImageView *ginaImageview3 =[[UIImageView alloc] initWithImage:ginaChannelImg2];
+        ginaImageview3.frame=CGRectMake(0, 0, ginaChannelImg2.size.width, ginaChannelImg2.size.height);
+        
+        for( UIView *view in [sc3 subviews]){
+            [view removeFromSuperview];
+        }
+        [sc3 addSubview:ginaImageview3];
+       
         
     }
     if( tobychannel.selected==YES && ginaChannel.selected==YES ){
-    
-        NSLog(@"33");
+       
+         NSLog(@"333333333");
+        UIImageView *bothImgview =[[UIImageView alloc] initWithImage:bothImg];
+        bothImgview.frame=CGRectMake(0, 0, bothImg.size.width, bothImg.size.height);
+        
+        for( UIView *view in [sc1 subviews]){
+            [view removeFromSuperview];
+        }
+        [sc1 addSubview:bothImgview];
+        
+        
+        UIImageView *bothImgview2 =[[UIImageView alloc] initWithImage:bothImg1];
+        bothImgview2.frame=CGRectMake(0, 0, bothImg2.size.width, bothImg2.size.height);
+        
+        for( UIView *view in [sc2 subviews]){
+            [view removeFromSuperview];
+        }
+        [sc2 addSubview:bothImgview2];
+        
+        
+        UIImageView *bothImgview3 =[[UIImageView alloc] initWithImage:bothImg2];
+        bothImgview3.frame=CGRectMake(0, 0, bothImg2.size.width, bothImg2.size.height);
+        
+        for( UIView *view in [sc1 subviews]){
+            [view removeFromSuperview];
+        }
+        [sc2 addSubview:bothImgview3];
     
     }
     
@@ -266,25 +329,33 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)sender {
-  /*  
-    if(sender==scView){
-        NSLog(@"view tag is %d",sender.tag);
-        
-        
-        CGPoint offset = [scView contentOffset];
-        CGPoint offset1 = [topScroll contentOffset];
-        if (offset.x<1024){
+ }
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+  
+   }
+
+-(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{  
+    
+    CGPoint offset = [scView contentOffset];
+    if(scrollView==scView){
+            CGPoint offset1 = [topScroll contentOffset];
+        if (offset.x<1022){
             offset1.x=-300;
+            NSLog(@"11");
             [topScroll setContentOffset:offset1];
         }
-        else if (offset.x>1024) {
+        else if (offset.x>=1022 && offset.x<2044) {
             
-            //offset1.x=0;
+            NSLog(@"22");
             offset1.x=0;
             [topScroll setContentOffset:offset1];
             
         }
-        else if(offset.x>2048){
+        else if(offset.x>=2044){
+            NSLog(@"33");
             offset1.x=380;
             [topScroll setContentOffset:offset1];
         }
@@ -292,98 +363,12 @@
     }
     
     CGPoint offset1 = [topScroll contentOffset];
-    NSLog(@"offset.x is %f",offset1.x);
-*/
-
-}
-
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-   // NSLog(@"view tag is %d",sender.tag);
-   }
--(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    if(scrollView==scView){
-        NSLog(@"view tag is %d",scrollView.tag);
-        
-        
-        CGPoint offset = [scView contentOffset];
-        CGPoint offset1 = [topScroll contentOffset];
-        if (offset.x<900){
-            offset1.x=-300;
-            [topScroll setContentOffset:offset1];
-        }
-        else if (offset.x>900) {
-            
-            //offset1.x=0;
-            offset1.x=0;
-            [topScroll setContentOffset:offset1];
-            
-        }
-        else {
-            offset1.x=680;
-            [topScroll setContentOffset:offset1];
-            [topScroll setContentSize:CGSizeMake(1400, 50)];
-        }
-        
-    }
-    CGPoint offset2 = [scView contentOffset];
-    CGPoint offset1 = [topScroll contentOffset];
-    NSLog(@"offset.x is %f-----%f",offset2.x,offset1.x);
+    NSLog(@"offset.x is %f  and %f",offset1.x,offset.x);
     
+    
+   
   }
 
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-   
-}
-
-
--(void)domoreInfo{
-      
-    NSLog(@"srk");
-    UIImage *img = [UIImage imageNamed:@"glee-feeds.png"]; 
-    UIImageView *imgView =[[UIImageView alloc] initWithImage:img];
-    imgView.frame = CGRectMake(109,105, 786,492);//CGRectMake(109,105, img.size.width+100, img.size.height+20);
-    imgView.backgroundColor=[UIColor whiteColor];
-     
-    baseView =[[UIView alloc] initWithFrame:CGRectMake(0, 20, 1024, 748)];
-    UIImageView *firstView =[[UIImageView alloc] initWithFrame:CGRectMake(90, 85, 876, 602)];
-    [firstView setImage:[UIImage imageNamed:@"social-box.png"]];
-    
- 
-    [baseView addSubview:firstView];
-    [baseView insertSubview:imgView aboveSubview:firstView];
-    
-    UIImage *viewMoreInfoImg =[UIImage imageNamed:@"view_more_info.png"];
-    UIButton *viewMoreInfoButton =[UIButton buttonWithType:UIButtonTypeCustom];
-    [viewMoreInfoButton setImage:[UIImage imageNamed:@"view_more_info.png"] forState:UIControlStateNormal];
-    [viewMoreInfoButton addTarget:self action:@selector(reverseFlip) forControlEvents:UIControlEventTouchUpInside];
-    viewMoreInfoButton.frame =CGRectMake(400, 62, viewMoreInfoImg.size.width, viewMoreInfoImg.size.height);
-    [baseView addSubview:viewMoreInfoButton];
-    
-    
-    UIImage *crossImg =[UIImage imageNamed:@"close.png"];
-    UIButton *crossButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [crossButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
-    crossButton.frame=CGRectMake(800, 92, crossImg.size.width, crossImg.size.height);
-    [crossButton addTarget:self action:@selector(removeFacebookView) forControlEvents:UIControlEventTouchUpInside];
-    [baseView addSubview:crossButton];
-    
-   
-    [UIView transitionWithView:detaialViewController.view duration:2.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{}
-     
-                    completion:^(BOOL finish){
-                        [self.view addSubview:baseView];
-                       // baseView.hidden=YES;
-                        [detaialViewController.view removeFromSuperview];
-                        //[self.view addSubview:baseView];
-                       // baseView.hidden=YES;
-                
-                    }];
-    [self performSelector:@selector(secAnimation) withObject:baseView];
-     
-}
 -(void)secAnimation{
     NSLog(@"sec animation called");
     baseView.hidden=NO;
@@ -541,6 +526,18 @@
             
      } completion:^(BOOL f) {}];
       
+}
+
+-(void)doAnimation{
+    NSLog(@"first");
+     viewSocialDetailsController = [[ViewSocialDetailsController alloc] initWithNibName:@"ViewSocialDetailsController" bundle:nil];
+    
+     [detaialViewController.view addSubview:viewSocialDetailsController.view];
+    [UIView transitionWithView:detaialViewController.view duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+     
+    } completion:^(BOOL f){}];
+    
+
 }
 -(void) setTitle{
   
@@ -749,7 +746,7 @@
 
 }
 -(IBAction)bottomButtonPressed2:(id)sender{
-    NSLog(@"ashu sharma");
+   
     NSArray *views = [bottomImageView subviews];
  
             
@@ -828,25 +825,6 @@
    
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

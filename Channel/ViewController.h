@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "DetaialViewController.h"
 #import "FavouriteImagesPopOver.h"
+#import "ViewSocialDetailsController.h"
 @interface ViewController : UIViewController<detailViewControllerDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate,favouriteImagePopOverdelegate>{
     IBOutlet UIImageView *favouriteImg; 
     UIPopoverController * favouriteImagePopOverController;
     UIImageView * bottomImageView;
     UIImageView *flipImg;
     DetaialViewController *detaialViewController;
-    UIScrollView *sc2;
+    ViewSocialDetailsController *viewSocialDetailsController;
+    
     UIImageView *toby1;
     UIButton *watchnowbtn;
     UIButton *moreinfbtn;
@@ -27,15 +29,12 @@
     UINavigationController *baseContoller;
     IBOutlet UILabel *favlabel;
     
-    
-    IBOutlet UILabel *label1;
-    IBOutlet UILabel *label2;
-    IBOutlet UILabel *label3;
-    
+   
     
     UIScrollView *scroll;
     float initialScroll;
-    
+    UIScrollView *sc3;
+    UIScrollView *sc2;
     
     UIScrollView *sc1;
     
@@ -58,10 +57,7 @@
 @property(nonatomic,strong) IBOutlet UIScrollView *childTopScroll;
 @property(nonatomic,strong) IBOutlet UIView *topView;
 @property(nonatomic,strong) IBOutlet UILabel *favlabel;
-
-@property(nonatomic,strong) IBOutlet UILabel *label1;
-@property(nonatomic,strong) IBOutlet UILabel *label2;
-@property(nonatomic,strong) IBOutlet UILabel *label3;
+@property(nonatomic,strong) ViewSocialDetailsController *viewSocialDetailsController;
 
 @property(nonatomic,strong) IBOutlet UIButton *tobychannel;
 @property(nonatomic,strong) IBOutlet UIButton *ginaChannel;
